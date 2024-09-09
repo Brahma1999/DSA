@@ -10,6 +10,16 @@ Problems:
 Range Sum Query - Immutable (LeetCode #303)
 Contiguous Array (LeetCode #525)
 Subarray Sum Equals K (LeetCode #560)
+Problems with this pattern:
+
+https://leetcode.com/problems/subarray-sum-equals-k/
+https://leetcode.com/problems/continuous-subarray-sum/
+https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/
+Problems sharing similarity in question framing:
+
+https://leetcode.com/problems/minimum-size-subarray-sum/ (only +ve elements): different from above pattern problems, where we are maximising the subArray size so repetitions on cumulativeSums occur, whereas in this problem we are minimizing the size of candidate so sliding becomes handy.
+https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/ (contains -ve elements): uses monotonic deque
+
 
 2. Two Pointers
 3. Sliding Window
