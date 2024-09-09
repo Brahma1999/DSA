@@ -22,6 +22,9 @@ https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/ (contains -
 
 
 2. Two Pointers
+The Two Pointers pattern involves using two pointers to iterate through an array or list, often used to find pairs or elements that meet specific criteria.
+Use this pattern when dealing with sorted arrays or lists where you need to find pairs that satisfy a specific condition.
+
 3. Sliding Window
 4. Fast & Slow Pointers
 5. LinkedList In-place Reversal
