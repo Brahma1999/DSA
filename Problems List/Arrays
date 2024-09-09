@@ -1,0 +1,43 @@
+Arrays 
+
+Easy Level
+
+•Find the maximum and minimum element in an array.
+•Find the sum of all elements in an array.
+•Reverse an array.
+•Check if an array is sorted in ascending order.
+•Find the second largest element in an array.
+•Count the number of occurrences of a specific element in an array.
+•Find the largest contiguous subarray sum (Kadane's Algorithm).
+•Rotate an array to the right by k positions.
+•Find the index of the first occurrence of a given element.
+•Remove duplicates from a sorted array.
+
+Medium Level
+
+•Find the intersection of two arrays.
+•Move all zeros to the end of the array while maintaining the relative order of non-zero elements.
+•Find the majority element (element that appears more than n/2 times).
+•Find the common elements in three sorted arrays.
+•Find the maximum product of two integers in an array.
+•Find the contiguous subarray with the maximum product.
+•Find the pair with the smallest difference in a sorted array.
+•Find the longest increasing subsequence.
+•Find the first missing positive integer.
+•Merge two sorted arrays into a single sorted array.
+•Find the peak element in an array. (An element which is greater than or equal to its neighbors)
+•Find the minimum number of swaps required to sort the array.
+•Find the longest subarray with equal number of 0s and 1s.
+•Find the longest subarray with a sum equal to a given value.
+•Find the maximum sum of a subarray with a fixed length.
+•Find all unique triplets in an array that sum up to a target value. (Three Sum Problem)
+•Determine if there is a subarray with zero sum.
+•Find all the leaders in an array. (An element is a leader if it is greater than all elements to its right)
+•Sort an array of 0s, 1s, and 2s (Dutch National Flag problem).
+•Find the smallest subarray with a given sum greater than or equal to a target value.
+
+
+
+
+
+
