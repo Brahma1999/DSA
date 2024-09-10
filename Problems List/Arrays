@@ -9,7 +9,7 @@ Easy Level
 •Find the second largest element in an array.
 •Count the number of occurrences of a specific element in an array.
 •Find the largest contiguous subarray sum (Kadane's Algorithm).
-•Rotate an array to the right by k positions.
+•Rotate an array to the right by k positions. (Leetcode 189)
 •Find the index of the first occurrence of a given element.
 •Remove duplicates from a sorted array.
 
