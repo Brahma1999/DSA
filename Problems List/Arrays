@@ -39,5 +39,35 @@ Medium Level
 
 
 
+Top10:
+1. Two Sum (Leetcode #1)
+  - Hashtable for effient lookup
+
+2.Best Time to Buy and Sell Stock (Leetcode #121)
+  - Track Minimum price and maximum price profit
+
+3. Product of Array Except Self (Leetcode #238)
+  - Left and Right Product arrays
+
+4. Maximum Subarray (Leetcode #53)
+  - Kedane's Algorithm
+
+5.Find Minimum in Rotated Sorted Array(Leetcode #153)
+  - Modified Binary Search
+
+6.Search in Rotated Sorted Array(Leetcode #33)
+  - Two Pass Binary Search
+
+7.Subarray Sum Equals K(Leetcode #560)
+  - Cumulative Sum with Hashmap
+
+8.Merge Sorted Array (Leetcode #88)
+  - Start from end ,compare and place
+
+9.Find All the Numbers Disappeared in an Array (Leetcode $448)
+  - In-place array Manipulation
+
+
+
 
 
