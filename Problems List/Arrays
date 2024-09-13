@@ -15,10 +15,10 @@ Easy Level
 
 Medium Level
 
-•Find the intersection of two arrays.
-•Move all zeros to the end of the array while maintaining the relative order of non-zero elements.
-•Find the majority element (element that appears more than n/2 times).
-•Find the common elements in three sorted arrays.
+•Find the intersection of two arrays. (Done)
+•Move all zeros to the end of the array while maintaining the relative order of non-zero elements.(Done)
+•Find the majority element (element that appears more than n/2 times).(Done)
+•Find the common elements in three sorted arrays.(Done)
 •Find the maximum product of two integers in an array.
 •Find the contiguous subarray with the maximum product.
 •Find the pair with the smallest difference in a sorted array.
