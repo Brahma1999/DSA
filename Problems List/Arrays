@@ -2,16 +2,16 @@ Arrays
 
 Easy Level
 
-•Find the maximum and minimum element in an array.
-•Find the sum of all elements in an array.
-•Reverse an array.
-•Check if an array is sorted in ascending order.
-•Find the second largest element in an array.
-•Count the number of occurrences of a specific element in an array.
-•Find the largest contiguous subarray sum (Kadane's Algorithm).
-•Rotate an array to the right by k positions. (Leetcode 189)
-•Find the index of the first occurrence of a given element.
-•Remove duplicates from a sorted array.
+•Find the maximum and minimum element in an array.(Done)
+•Find the sum of all elements in an array.(Done)
+•Reverse an array.(Done)
+•Check if an array is sorted in ascending order. (Done)
+•Find the second largest element in an array.(Done)
+•Count the number of occurrences of a specific element in an array.(Done) Good One
+•Find the largest contiguous subarray sum (Kadane's Algorithm).(Done)
+•Rotate an array to the right by k positions. (Leetcode 189)(Done)
+•Find the index of the first occurrence of a given element.(Done)
+•Remove duplicates from a sorted array.(Done)
 
 Medium Level
 
