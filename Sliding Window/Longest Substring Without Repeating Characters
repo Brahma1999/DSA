@@ -1,0 +1,51 @@
+Longest Substring Without Repeating Characters
+Given a string s, find the length of the longest 
+substring without repeating characters.
+Example 1:
+
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+Example 2:
+
+Input: s = "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+Example 3:
+
+Input: s = "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
+
+CODE:
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int n=s.length();
+        //Create a map to store the character and its position
+        HashMap<Character,Integer>map=new HashMap<>();
+        int leftIndex=0;
+        int rightIndex=0;
+        int maxLength=0;
+        while(rightIndex < n)
+        {
+            // current character
+            char currChar=s.charAt(rightIndex);
+
+            //Check if current index exists in the map or not
+            if(map.containsKey(currChar)){
+                //Left index will shift to the max of last leftIndex position and current characters last index position
+                leftIndex=Math.max(leftIndex,map.get(currChar)+1);
+            }
+
+            //Calcuate the maxlength of the substring
+            maxLength=Math.max(maxLength,rightIndex-leftIndex+1);
+            //If not present in map,put it in the map
+            map.put(currChar,rightIndex); 
+            //Increase the right index pointer
+            rightIndex++;
+
+        }
+        return maxLength;
+    }
+}
