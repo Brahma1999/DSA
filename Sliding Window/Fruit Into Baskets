@@ -42,7 +42,7 @@ class Solution {
         int right=0;
         int n = fruits.length;
         int maxFruits=0;
-        int total=0;
+       
 
         //Map to store the fruit count
         HashMap<Integer,Integer>fruitMap=new HashMap<>();
