@@ -1,0 +1,78 @@
+Number of Substrings Containing All Three Characters
+Given a string s consisting only of characters a, b and c.
+Return the number of substrings containing at least one occurrence of all these characters a, b and c.
+
+Example 1:
+
+Input: s = "abcabc"
+Output: 10
+Explanation: The substrings containing at least one occurrence of the characters a, b and c are "abc", "abca", "abcab", "abcabc", "bca", "bcab", "bcabc", "cab", "cabc" and "abc" (again). 
+Example 2:
+
+Input: s = "aaacb"
+Output: 3
+Explanation: The substrings containing at least one occurrence of the characters a, b and c are "aaacb", "aacb" and "acb". 
+Example 3:
+
+Input: s = "abc"
+Output: 1
+
+
+Explanantion:
+When solving the problem of finding the number of substrings in a string where each substring contains all three distinct characters ('a', 'b', and 'c'), the naive approach might be to check every possible substring and see if it contains all three characters. This method would involve generating all substrings, which is inefficient and slow, especially for large strings, as it would have a time complexity of (O(n^3)) due to substring generation and character checking.
+
+Approach
+To solve this problem efficiently, we can use a sliding window technique with some clever tracking of the last seen indices of each character. Here’s a step-by-step explanation of the approach:
+
+Tracking Last Seen Indices: We keep an array lastSeen of size 3, where lastSeen[0], lastSeen[1], and lastSeen[2] will track the most recent positions of characters 'a', 'b', and 'c' respectively.
+
+Iterating Through the String: As we iterate through the string, for each character, we update its position in the lastSeen array.
+
+Calculating Valid Substrings: To find the number of valid substrings that end at the current position, we need to find the earliest index among the last seen indices of 'a', 'b', and 'c'. The number of valid substrings ending at the current position can be calculated using:
+[
+text{valid substrings} = 1 + text{minimum index of last seen characters}
+]
+This formula works because any substring that starts from an index before or at the earliest of the last seen indices and ends at the current position will contain all three characters.
+
+Updating the Answer: Sum up the number of valid substrings for each character to get the total count.
+
+Example
+Consider the string "abc":
+
+Initial lastSeen array: [-1, -1, -1] (no characters seen yet).
+For character 'a' at index 0:
+Update lastSeen: [0, -1, -1].
+Valid substrings ending at index 0: 1 + min(0, -1, -1) = 1.
+For character 'b' at index 1:
+Update lastSeen: [0, 1, -1].
+Valid substrings ending at index 1: 1 + min(0, 1, -1) = 1 + (-1) = 2.
+For character 'c' at index 2:
+Update lastSeen: [0, 1, 2].
+Valid substrings ending at index 2: 1 + min(0, 1, 2) = 1 + 0 = 3.
+Edge Cases
+String with Less than 3 Characters: If the string length is less than 3, it's impossible to have a substring containing all three characters, so the result should be 0.
+
+String with Missing Characters: If the string does not contain all three characters, there will be no valid substrings. For example, "aabb" only contains 'a' and 'b', so the result will be 0.
+
+This approach is efficient with a time complexity of (O(n)) and a space complexity of (O(1)), making it well-suited for larger strings.
+
+
+CODE:
+class Solution {
+    public int numberOfSubstrings(String s) {
+       //Initial lastSeen array: [-1, -1, -1] 
+       int lastseen[]=new int[3];
+       Arrays.fill(lastseen,-1); //no characters seen yet
+
+       int count=0;
+
+       for(int i=0;i<s.length();i++){
+        //update the last seen
+        lastseen[s.charAt(i)-'a']=i;
+        //Calculating Valid Substrings
+        count += 1 + Math.min(lastseen[0], Math.min(lastseen[1], lastseen[2]));
+       }
+
+       return count;
+    }
+}
