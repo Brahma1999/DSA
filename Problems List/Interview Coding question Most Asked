@@ -77,3 +77,89 @@ Path with Maximum Probability
 Even Odd Tree
 Product of Two Run-Length Encoded Arrays
 Convert 1D Array Into 2D Array
+
+
+
+
+Here's a categorized list of the questions you've provided:
+
+### Array & String Manipulation
+1. Two Sum
+2. Merge Sorted Array
+3. Find First and Last Position of Element in Sorted Array
+4. Move Zeroes
+5. Maximum Swap
+6. Valid Palindrome
+7. Valid Palindrome II
+8. Longest Palindromic Substring
+9. Letter Combinations of a Phone Number
+10. Custom Sort String
+11. Add Strings
+12. Valid Number
+13. Split Linked List in Parts
+
+### Linked Lists
+1. Remove Nth Node From End of List
+2. Reverse Linked List
+3. Copy List with Random Pointer
+4. Linked List Cycle II
+
+### Trees
+1. Lowest Common Ancestor of a Binary Tree
+2. Lowest Common Ancestor of a Binary Tree III
+3. Binary Tree Vertical Order Traversal
+4. Vertical Order Traversal of a Binary Tree
+5. Binary Tree Right Side View
+6. Binary Tree Postorder Traversal
+7. Diameter of Binary Tree
+8. Range Sum of BST
+
+### Dynamic Programming
+1. Climbing Stairs
+2. Longest Consecutive Sequence
+3. Subarray Sum Equals K
+4. Continuous Subarray Sum
+5. Path Sum II
+6. Path Sum III
+7. Word Break II
+8. Pow(x, n)
+
+### Combinatorial Problems
+1. 3Sum
+2. Word Ladder
+3. Stickers to Spell Word
+4. Kth Largest Element in an Array
+5. K Closest Elements
+
+### Graphs
+1. Clone Graph
+2. Course Schedule
+3. Shortest Path in Binary Matrix
+
+### Search Algorithms
+1. Find Minimum in Rotated Sorted Array
+2. Binary Search Tree Iterator
+3. Random Pick with Weight
+4. Find Peak Element
+
+### Miscellaneous Algorithms
+1. Random Pick with Weight
+2. Basic Calculator II
+3. Simplify Path
+4. Buildings With an Ocean View
+5. Making A Large Island
+6. Product of Two Run-Length Encoded Arrays
+7. Dot Product of Two Sparse Vectors
+8. Merge Intervals
+9. Merge Strings Alternately
+10. Diagonal Traverse
+11. Add Two Numbers
+12. Largest Rectangle in Histogram
+13. Range Sum of BST
+
+### Other
+1. Validate IP Address
+2. Even Odd Tree
+3. Create Hello World Function
+
+This organization can help you focus on specific areas as you study or solve problems!
