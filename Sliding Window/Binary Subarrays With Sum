@@ -1,0 +1,57 @@
+Binary Subarrays With Sum
+Given a binary array nums and an integer goal, return the number of non-empty subarrays with a sum goal.
+
+A subarray is a contiguous part of the array.
+Example 1:
+
+Input: nums = [1,0,1,0,1], goal = 2
+Output: 4
+Explanation: The 4 subarrays are bolded and underlined below:
+[1,0,1,0,1]
+[1,0,1,0,1]
+[1,0,1,0,1]
+[1,0,1,0,1]
+Example 2:
+
+Input: nums = [0,0,0,0,0], goal = 0
+Output: 15
+ 
+Constraints:
+1 <= nums.length <= 3 * 104
+nums[i] is either 0 or 1.
+0 <= goal <= nums.length
+
+
+CODE:
+class Solution {
+    public static int countSubArray(int[] nums, int goal){
+        //if goal is less than zero 
+        if(goal<0) return 0;
+
+        int n=nums.length; //length of input array
+        int left=0;   //left pointer
+        int right=0;  //right pointer
+        int sum=0;    //current sum of the window
+        int count=0;   //count of valid subarrays
+
+        while(right<n){
+            sum+=nums[right]; //Add current element to the sum 
+            //while sum exceeds the goal ,move the left pointer to reduce the sum
+            while(sum>goal && left<n){
+                sum-= nums[left];
+                left++; //move the left pointer forward
+            }
+            //count the number of valid subarrays ending at right 
+            count+=(right-left+1);
+            right++; //move the right pointer forward
+        }
+        return count; //Return the total count of valid subarrays
+    }
+
+    public int numSubarraysWithSum(int[] nums, int goal) {
+        //Calculate the number of subarrays with sum equal to goal
+        //by subtracting the counts of subarrays with sum equal to (goal-1)
+        int maxCount=countSubArray(nums,goal)- countSubArray(nums,goal-1);
+        return maxCount;
+    }
+}
