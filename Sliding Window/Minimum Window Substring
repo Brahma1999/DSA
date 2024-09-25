@@ -1,0 +1,88 @@
+Minimum Window Substring
+
+Given two strings s and t of lengths m and n respectively, return the minimum window 
+substring
+ of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+The testcases will be generated such that the answer is unique.
+
+Example 1:
+
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+Example 2:
+
+Input: s = "a", t = "a"
+Output: "a"
+Explanation: The entire string s is the minimum window.
+Example 3:
+
+Input: s = "a", t = "aa"
+Output: ""
+Explanation: Both 'a's from t must be included in the window.
+Since the largest window of s only has one 'a', return empty string.
+
+
+CODE:
+class Solution {
+    public String minWindow(String s, String t) {
+        int n = s.length();
+        int m = t.length();
+        // edge cade: if s is lower than t, return empty string
+        if (n < m)
+            return "";
+
+        // Map to store the count of characters in t
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < m; i++) {
+            char ch = t.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) + 1); 
+        }
+
+        int minLength = Integer.MAX_VALUE;
+        int startingIndex = -1;
+        int count = 0;
+
+        int left = 0;
+        int right = 0;
+
+        //start expanding the right pointer
+        while (right < n) {
+            char currChar = s.charAt(right);
+
+            // if the current character is present in map
+            if (map.containsKey(currChar)) {
+                if(map.get(currChar) > 0){
+                    count++; //increment the matched characters count
+                }
+                // decrease the count in the map
+                map.put(currChar, map.get(currChar) - 1); 
+            }
+
+            // when we have all the characters in t matched
+            while (count == m) {
+                int currWindowLength = right - left + 1;
+
+                //update minimum window size if currwnt is smaller
+                if (currWindowLength < minLength) {
+                    minLength = currWindowLength; // update minimum length
+                    startingIndex = left; // update the starting index
+                }
+
+                // try to contract the window from left
+                char leftChar = s.charAt(left);
+                if (map.containsKey(leftChar)) {
+                    map.put(leftChar, map.get(leftChar) + 1); // increment count in the map
+                    if (map.get(leftChar) >0) {
+                        count--; // decrease matched character count
+                    }
+                }
+                left++; // move left pointer to the right to shrink the window
+            }
+            right++; // move left pointer to the right to expand the window
+        }
+        // if we found a valid window,return the substring :otherwise , return ""
+        return startingIndex == -1 ? "" : s.substring(startingIndex,startingIndex+ minLength);
+    }
+}
+ 
