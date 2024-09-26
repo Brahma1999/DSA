@@ -20,42 +20,46 @@ The best way is to split it into [1,2,3] and [4,5], where the largest sum among 
 
 CODE:
 class Solution {
-       static int numberOfSubar(int []a, int maxSumInASingleAr){
-        int num = 1;
-        int s = 0;
-        for(int i=0;i<a.length;i++){
-            if(a[i]+s <= maxSumInASingleAr){
-                s+=a[i];
+       static int numberOfSubar(int[] nums, int maxPossibleSum){
+        int numOfSubArr = 1;
+        int currSum = 0;
+
+        for(int num:nums){
+
+            if(currSum+num <= maxPossibleSum){
+                currSum+=num;
             }else{
-                num++;
-                s = a[i];
+                numOfSubArr++;
+                currSum=num;
             }
         }
-        return num;
+        return numOfSubArr;
     }
 
-    public int splitArray(int[] arr, int K) {
-        int N=arr.length;
+    public int splitArray(int[] nums, int k) {
+        int n=nums.length;
         int sum = 0;
         int max = Integer.MIN_VALUE;
         
-        for(int i: arr){
-            sum += i;
-            max = Math.max(max, i);
+        for(int num: nums){
+            sum += num;
+            max = Math.max(max, num);
         }
         
-        int low = max;
-        int high = sum;
+        int start = max; //starting index
+        int end = sum;  //ending index
         
-        while(low<=high){
-            int mid = (low+high)/2;
-            if(numberOfSubar(arr,mid)<=K){
-                high = mid-1;
+        while(start <= end)
+        {
+            int mid = start+(end-start)/2;
+            int numOfSubar=numberOfSubar(nums,mid);
+            if(numOfSubar <= k){
+                end = mid-1;
             }
-            else
-                low = mid+1;
+            else{
+                start = mid+1;
+            }
         }
-        return low;
-
+        return start;
     }
 }
