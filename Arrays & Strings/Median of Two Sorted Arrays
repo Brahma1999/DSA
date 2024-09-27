@@ -1,0 +1,68 @@
+Median of Two Sorted Arrays
+Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+
+The overall run time complexity should be O(log (m+n)).
+Example 1:
+
+Input: nums1 = [1,3], nums2 = [2]
+Output: 2.00000
+Explanation: merged array = [1,2,3] and median is 2.
+Example 2:
+
+Input: nums1 = [1,2], nums2 = [3,4]
+Output: 2.50000
+Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+
+CODE:
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        
+        int n=nums1.length;
+        int m=nums2.length;
+
+        int resArrayLen = n+m;
+        int resArrayindex2 = resArrayLen/2;
+        int resArrayindex1 = resArrayindex2 - 1;
+
+        int i=0;
+        int j=0;
+        int count=0;
+        int index1=-1;
+        int index2=-1;
+
+        while(i<n && j<m){
+            if(nums1[i]<nums2[j])
+            {
+                if(count == resArrayindex1) index1=nums1[i];
+                if(count == resArrayindex2) index2=nums1[i];
+                count++;
+                i++;
+            }
+            else{
+                if(count == resArrayindex1) index1=nums2[j];
+                if(count == resArrayindex2) index2=nums2[j];
+                count++;
+                j++;
+            }
+        }
+
+        while(i<n){
+            if(count == resArrayindex1) index1=nums1[i];
+            if(count == resArrayindex2) index2=nums1[i];
+            count++;
+            i++;
+        }
+
+        while(j<m){
+            if(count== resArrayindex1) index1=nums2[j];
+            if(count== resArrayindex2) index2=nums2[j];
+            count++;
+            j++;
+        }
+
+        if(resArrayLen % 2 == 1) return index2;
+
+        return (double)((double)(index1)+(index2))/2.0;
+
+    }
+}
