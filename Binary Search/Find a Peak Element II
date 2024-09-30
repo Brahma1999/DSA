@@ -1,0 +1,68 @@
+Find a Peak Element II
+
+A peak element in a 2D grid is an element that is strictly greater than all of its adjacent neighbors to the left, right, top, and bottom.
+
+Given a 0-indexed m x n matrix mat where no two adjacent cells are equal, find any peak element mat[i][j] and return the length 2 array [i,j].
+
+You may assume that the entire matrix is surrounded by an outer perimeter with the value -1 in each cell.
+You must write an algorithm that runs in O(m log(n)) or O(n log(m)) time.
+
+Example 1:
+Input: mat = [[1,4],[3,2]]
+Output: [0,1]
+Explanation: Both 3 and 4 are peak elements so [1,0] and [0,1] are both acceptable answers.
+Example 2:
+
+Input: mat = [[10,20,15],[21,30,14],[7,16,32]]
+Output: [1,1]
+Explanation: Both 30 and 32 are peak elements so [1,1] and [2,2] are both acceptable answers.
+
+CODE:
+class Solution {
+
+    //Method to find the index of the maximum element in a specified column
+    public static int findMaxIndex(int[][] mat,int n,int m,int col){
+        int maxValue=-1;
+        int maxRowIndex=-1;
+
+        for(int row=0;row<n;row++){
+            if(mat[row][col]>maxValue){
+                maxValue=mat[row][col]; //update maxElement
+                maxRowIndex=row; //update maxRowIndex ,if current element is greater
+            }
+        }
+        return maxRowIndex;
+    }
+
+    public int[] findPeakGrid(int[][] mat) {
+        int n=mat.length;    //Number of rows
+        int m=mat[0].length;     //Number of columns
+        int start=0;      //Starting column
+        int end=m-1;      //Ending Column
+
+        //Binary Search over columns
+        while(start<=end){
+            int mid=start+(end-start)/2; //middle column
+
+            //find max value's row in the middle column
+            int rowRowIndex=findMaxIndex(mat,n,m,mid);
+
+            int left=mid-1>0 ? mat[rowRowIndex][mid-1]:-1; //value to the left
+            int right=mid+1<m?mat[rowRowIndex][mid+1]:-1;  //value to the right
+
+            //if the middle element is greater than its neighbors,it's a peak
+            if(mat[rowRowIndex][mid]> left && mat[rowRowIndex][mid]>right ){
+                return new int[] {rowRowIndex,mid}; //return peak index
+            }
+            //move left if the left neighbot is greater
+            else if(mat[rowRowIndex][mid]<left){
+                end=mid-1;
+            }
+            //move right otherwise
+            else{
+                start=mid+1;
+            }
+        }
+        return new int[] {-1,-1};
+    }
+}
