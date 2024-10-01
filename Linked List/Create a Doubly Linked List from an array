@@ -1,0 +1,44 @@
+Create a Doubly Linked List from an array
+Geek is learning data structures and is familiar with linked lists, but he's curious about how to access the previous element in a linked list in the same way that we access the next element. His teacher explains doubly linked lists to him.
+
+Given an integer array arr of size n. Construct the doubly linked list from arr and return the head of it.
+
+Example 1:
+
+Input:
+n = 5
+arr = [1,2,3,4,5]
+Output:
+1 2 3 4 5
+Explanation: Linked list for the given array will be 1<->2<->3<->4<->5.
+
+CODE:
+class Solution {
+    Node constructDLL(int arr[]) {
+
+        //create the head Node using the first element
+        Node head =new Node(arr[0]);
+        if(arr.length==1) return head;
+        
+        //Initialixe a pointer to keep track of the prrvious node
+        Node prevNode=head;
+        
+        for(int i=1;i<arr.length;i++){
+            
+            //create a new node for the current array element
+            Node currNode=new Node(arr[i]);
+            //set the prev pointer of the current node to the previous node
+            currNode.prev=prevNode;
+            
+            //Link the previous node's next pointer to the current node 
+            prevNode.next=currNode;
+            
+            //move the previous node pointer to the current node
+            prevNode=currNode;
+            
+        }
+        
+        //return the head 
+        return head;
+    }
+}
