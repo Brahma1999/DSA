@@ -1,0 +1,54 @@
+Find length of Loop
+Given the head of a linked list, determine whether the list contains a loop. If a loop is present, return the number of nodes in the loop, otherwise return 0.
+
+Note: 'c' is the position of the node which is the next pointer of the last node of the linkedlist. If c is 0, then there is no loop.
+
+Examples:
+
+Input: LinkedList: 25->14->19->33->10->21->39->90->58->45, c = 4
+Output: 7
+Explanation: The loop is from 33 to 45. So length of loop is 33->10->21->39-> 90->58->45 = 7. 
+The number 33 is connected to the last node of the linkedlist to form the loop because according to the input the 4th node from the beginning(1 based indexing) 
+will be connected to the last node for the loop.
+ 
+Input: LinkedList: 5->4, c = 0
+Output: 0
+Explanation: There is no loop.
+
+Expected Time Complexity: O(n)
+Expected Auxiliary Space: O(1)
+
+CODE:
+class Solution {
+    // Function to find the length of a loop in the linked list.
+    
+    static int loopLength(Node head)
+    {
+        int size=1;
+        Node tempNode=head;
+        
+        while(tempNode.next != head)
+        {
+            size++;
+            tempNode=tempNode.next;
+        }
+        return size;
+    }
+    
+    public int countNodesinLoop(Node head) {
+        //
+        Node fast=head;
+        Node slow=head;
+        while(slow!=null && fast!=null && fast.next!=null)
+        {
+            fast=fast.next.next;
+            slow=slow.next;
+            
+            if(slow == fast)
+            {
+                return loopLength(slow);
+            }
+        }
+        return 0;
+    }
+}
