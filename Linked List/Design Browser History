@@ -1,0 +1,103 @@
+Design Browser History
+You have a browser of one tab where you start on the homepage and you can visit another url, get back in the history number of steps or move forward in the history number of steps.
+
+Implement the BrowserHistory class:
+
+BrowserHistory (string homepage) Initializes the object with the homepage of the browser.
+void visit (string url) Visits url from the current page. It clears up all the forward history.
+string back (int steps) Move steps back in history. If you can only return x steps in the history and steps > x, you will return only x steps. Return the current url after moving back in history at most steps.
+string forward (int steps) Move steps forward in history. If you can only forward x steps in the history and steps > x, you will forward only x steps. Return the current url after forwarding in history at most steps.
+Example 1:
+
+Input:
+homepage = "gfg.org"
+visit("google.com");
+visit("facebook.com");
+visit("youtube.com");
+back(1);
+back(1);
+forward(1);
+visit("linkedin.com");
+forward(2);
+back(2);
+back(7);
+
+Output:
+facebook.com
+google.com
+facebook.com
+linkedin.com
+google.com
+gfg.org
+
+Explanation: 
+query1: you are now at "google.com"
+query2: you are now at "facebook.com"
+query3: you are now at "youtube.com"
+query4: move one step back, you will be at
+        "facebook.com" again.
+query5: move one more step back, you will be
+        at "google.com"
+query6: move one step forward, you will be 
+        at "facebook.com"
+query7: jump to "linkedin.com"
+query8: No forward steps available, be at 
+        "linkedin.com"
+query9: move two steps back, you will go to 
+        "facebook.com" and then "google.com"
+query10: required 7 steps backward but only 
+         1 step available, so move 1 step  
+         back, you will be at "gfg.org"
+
+CODE:
+class BrowserHistory {
+
+    Node currNode;
+
+    public BrowserHistory(String homepage) {
+        currNode=new Node(homepage);
+    }
+    public void visit(String url) {
+        Node newNode=new Node(url);
+        currNode.next=newNode;
+        newNode.prev=currNode;
+        currNode=newNode;
+    }
+    
+    public String back(int steps) {
+        while(steps>0){
+            if(currNode.prev!=null){
+                currNode=currNode.prev;
+            }
+            else {
+                break;
+            }
+             steps--;
+            
+        }
+        return currNode.data;
+    }
+    
+    public String forward(int steps) {
+        while(steps>0){
+            if(currNode.next!=null){
+                currNode=currNode.next;
+            }
+            else {
+                break;
+            }
+            steps--;
+            
+        }
+        return currNode.data;
+    }
+}
+
+class Node{
+    Node next;
+    Node prev;
+    String data;
+    Node(String data){
+        this.data=data;
+    }
+}
