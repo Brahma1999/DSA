@@ -1,0 +1,48 @@
+Queue using stack
+Implement a Queue using two stack s1 and s2.
+
+Example 1:
+
+Input:
+enqueue(2)
+enqueue(3)
+dequeue()
+enqueue(4)
+dequeue()
+Output: 2 3
+Explanation:
+enqueue(2) the queue will be {2}
+enqueue(3) the queue will be {2, 3}
+dequeue() the poped element will be 2 
+the queue will be {3}
+enqueue(4) the queue will be {3, 4}
+dequeue() the poped element will be 3.  
+
+
+CODE:
+class Queue
+{
+    Stack<Integer> s1 = new Stack<Integer>(); 
+    Stack<Integer> s2 = new Stack<Integer>(); 
+    
+    /*The method pop which return the element poped out of the stack*/
+    int dequeue()
+    {
+	    int x=s1.pop();
+        return x;
+    }
+	
+    /* The method push to push element into the stack */
+    void enqueue(int x)
+    {
+	    while(!s1.isEmpty()){
+                s2.push(s1.pop());
+        }	
+        
+        s1.push(x);
+        
+        while(!s2.isEmpty()){
+                s1.push(s2.pop());
+        }
+    }
+}
