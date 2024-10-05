@@ -32,33 +32,49 @@ Expected Time Complexity: O(1) for both push() and pop().
 Expected Auxiliary Space: O(1) for both push() and pop().
 
 CODE:
-class MyQueue {
-
-    int front, rear;
-	int arr[] = new int[100005];
-
-    MyQueue()
+class QueueNode
+{
+	int data;
+	QueueNode next;
+	QueueNode(int a)
 	{
-		front=0;
-		rear=0;
+	    data = a;
+	    next = null;
+	}
+}*/
+
+class MyQueue
+{
+    QueueNode start, end;
+    
+    //Function to push an element into the queue.
+	void push(int a)
+	{
+        QueueNode newNode=new QueueNode(a);
+        
+        if(end==null){
+          start = end = newNode;
+        }else{
+          end.next = newNode;
+          end = newNode;
+        }
 	}
 	
-	//Function to push an element x in a queue.
-	void push(int x)
-	{
-	    arr[rear]=x;
-	    rear++;
-	} 
-
-    //Function to pop an element from queue and return that element.
+    //Function to pop front element from the queue.
 	int pop()
 	{
-		if(front==rear) return -1;
-		
-		int val=arr[front];
-		arr[front]=0;
-		front++;
-		
-		return val;
-	} 
+        if(start == null){
+          return -1;
+        }
+        
+        int current = start.data;
+        
+        start = start.next;
+        
+        if(start == null){
+          end=null;
+        }
+        
+        return current;
+	}
 }
