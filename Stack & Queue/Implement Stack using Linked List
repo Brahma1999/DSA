@@ -39,23 +39,27 @@ class MyStack {
     // }
     StackNode top;
 
-    // Function to push an integer into the stack.
+   // Function to push an integer into the stack.
     void push(int a) {
         
         StackNode newNode=new StackNode(a);
-        
-        newNode.next=top;
+        //point the new node's next to the current top node
+        newNode.next=top; 
+        //update the top to be the new node
         top=newNode;
     }
 
     // Function to remove an item from top of the stack.
     int pop() {
         
+        //if the stack is empty,return -1
         if(top==null) return -1;
         
+        //store the value of the top node
         int res=top.data;
+        //move the top pointer to the next node
         top=top.next;
 
+        //return the stored top node value
         return res;
-    }
 }
