@@ -1,0 +1,63 @@
+Asteroid Collision
+
+class Solution {
+    public int[] asteroidCollision(int[] asteroids) {
+        
+        int n=asteroids.length;
+        //stack to hold surviving asteroids
+        Stack<Integer>stack=new Stack<>();
+
+        //Iterate through each asteroids
+        for(int ast:asteroids)
+        {
+            //If the current asteroid is move left(negative)
+            if(ast<0){
+                //check for collisions with right moving asteroids(positive)
+                while(!stack.isEmpty() && stack.peek()> 0){
+                    //compare the top of the stack (right-moving)
+                    if(stack.peek()< Math.abs(ast)){
+                        //right moving asteroid is smaller
+                        //it gets destroyed
+                        stack.pop();
+                    }
+                    else if(stack.peek()==Math.abs(ast)){
+                        //both asteroids are equal
+                        //both get destroyed
+                        stack.pop();
+                        //exit the loop
+                        //left moving asteroid gets destroyed
+                        break;
+                    }
+                    else{
+                        //right moving asteroid is larger
+                        //left moving asteroid gets destroyed
+                        break;
+                    }
+                }
+            }
+            else{
+                //if the current asteroid is moving right (positive)
+                //push it onto the stack
+                stack.push(ast);
+            }
+        }
+        
+        //Result array based on surviving asteroids in the stack
+        int s=stack.size();
+        int res[]=new int[s];
+        for(int i=s-1;i>=0;i--){
+            res[i]=stack.pop();
+        }
+
+        return res;
+    }
+}
+
+
+Failed Test Case:
+
+Input asteroids = [-2,-1,1,2]
+
+Testcase
+Output Coming: [1,2]
+Output Expected: [-2,-1,1,2]
