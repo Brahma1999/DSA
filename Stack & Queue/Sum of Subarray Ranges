@@ -1,0 +1,131 @@
+//Sum of Subarray Ranges
+class Solution {
+    //Previous smaller or Equal Elements
+    public int[] prevSmallerEqualElements(int[] arr,int n){
+        int psee[]=new int[n]; //stores previous smaller or equals elements index
+        psee[0]=-1;
+        Stack<Integer>stack=new Stack<>();
+        stack.push(0); //pushing index
+        for(int i=1;i<n;i++){
+            while(!stack.isEmpty() && arr[stack.peek()]>=arr[i]){
+                stack.pop();
+            }
+            if(stack.isEmpty()){
+                psee[i]=-1;
+            }else{
+                psee[i]=stack.peek();
+            }
+            stack.push(i);//pushing index
+        }
+        return psee;
+    }
+    //Next Smaller Elements
+    public int[] nextSmallerElements(int[] arr,int n) {
+        int nse[]=new int[n]; //stores next smaller elements index
+        nse[n-1]=n;
+        Stack<Integer>stack=new Stack<>();
+        stack.push(n-1); //pushing index
+
+        for(int i=n-2;i>=0;i--){
+
+            while(!stack.isEmpty() && arr[stack.peek()]>arr[i] ){
+                stack.pop();
+            }
+            //if the stack is empty,there is no smaller element 
+            if(stack.isEmpty()){
+                nse[i]=n;
+            }else{
+                nse[i]=stack.peek();
+            }
+            //push the current element onto the stack
+            stack.push(i);
+        }
+        return nse;
+    }
+    //Sum of Subarray Minimums
+    public long sumSubarrayMins(int[] arr,int n) {
+
+        int psee[]=prevSmallerEqualElements(arr,n);
+        int nse[]=nextSmallerElements(arr,n);
+
+        long sum=0;
+        long mod = 1000000007;;
+
+        for(int i=0;i<n;i++){
+            long left = psee[i]==-1 ? i+1 : i-psee[i];
+            long right = nse[i]-i;
+
+            sum =(sum+ left * right % mod * arr[i] % mod)%mod;
+        }
+        return sum;
+    }
+
+    //Previous Greater or Equal Elements
+    public int[] prevGreaterEqualElements(int[] arr,int n){
+        int pgee[]=new int[n]; //stores previous smaller or equals elements index
+        pgee[0]=-1;
+        Stack<Integer>stack=new Stack<>();
+        stack.push(0); //pushing index
+        for(int i=1;i<n;i++){
+            while(!stack.isEmpty() && arr[stack.peek()]<=arr[i]){
+                stack.pop();
+            }
+            if(stack.isEmpty()){
+                pgee[i]=-1;
+            }else{
+                pgee[i]=stack.peek();
+            }
+            stack.push(i);//pushing index
+        }
+        return pgee;
+    }
+    //Next Greater Elements
+    public int[] nextGreaterElements(int[] arr,int n) {
+        int nge[]=new int[n]; //stores next smaller elements index
+        nge[n-1]=n;
+        Stack<Integer>stack=new Stack<>();
+        stack.push(n-1); //pushing index
+
+        for(int i=n-2;i>=0;i--){
+
+            while(!stack.isEmpty() && arr[stack.peek()]<arr[i] ){
+                stack.pop();
+            }
+            //if the stack is empty,there is no smaller element 
+            if(stack.isEmpty()){
+                nge[i]=n;
+            }else{
+                nge[i]=stack.peek();
+            }
+            //push the current element onto the stack
+            stack.push(i);
+        }
+        return nge;
+    }
+    //Sum of Subarray Maximums
+    public long sumSubarrayMaxs(int[] arr,int n) {
+
+        int pgee[]=prevGreaterEqualElements(arr,n);
+        int nge[]=nextGreaterElements(arr,n);
+
+        long sum=0;
+        long mod = 1000000007;;
+
+        for(int i=0;i<n;i++){
+            long left = pgee[i]==-1 ? i+1 : i-pgee[i];
+            long right = nge[i]-i;
+
+            sum =(sum+ left * right % mod * arr[i] % mod)%mod;
+        }
+        return sum;
+    }
+ 
+    public long subArrayRanges(int[] arr) {
+        int n=arr.length;
+
+        long sumSubarrayMinimum=sumSubarrayMins(arr,n);
+        long sumSubarrayMaximum=sumSubarrayMaxs(arr,n);
+
+        return (long)(sumSubarrayMaximum-sumSubarrayMinimum);
+    }
+}
