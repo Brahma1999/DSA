@@ -30,3 +30,80 @@ lRUCache.get(4);    // return 4
 
 
 CODE:
+
+class LRUCache {
+
+    private class Node{
+        int key;
+        int value;
+        Node prev;
+        Node next;
+
+        Node(int key,int value){
+            this.key=key;
+            this.value=value;
+        }
+    }
+
+    private final int capacity;
+    private final HashMap<Integer,Node>map;
+    private Node head;
+    private Node tail;
+
+    public LRUCache(int capacity) {
+        
+        this.capacity=capacity;
+        this.map=new HashMap<>();
+
+        head=new Node(0,0); //Dummy head
+        tail=new Node(0,0); //Dummy tail
+
+        head.next=tail;
+        tail.prev=head;
+    }
+
+    public int get(int key) {
+        if(map.containsKey(key)){
+            Node node=map.get(key);
+            remove(node);
+            addToFront(head);
+            return node.value;
+        }
+        return -1; //Not Found
+    }
+    
+    public void put(int key, int value) {
+
+        if(map.containsKey(key)){
+            
+            Node node=map.get(key);
+            node.value=value; //update the value
+            remove(node);
+            addToFront(node);
+
+        }else{
+            if(map.size()>= capacity){
+                map.remove(tail.prev.key); //Remove LRU from the map
+                remove(tail.prev); // remove from list
+            }
+
+            Node newNode=new Node(key,value);
+            map.put(key,newNode);
+            addToFront(newNode);
+        }
+    }
+
+    private void remove(Node node){
+        node.prev.next=node.next;
+        node.next.prev=node.prev;
+    }
+
+    private void addToFront(Node node){
+        node.prev=head;
+        node.next=head.next;
+        head.next.prev=node;
+        head.next=node;
+    }
+
+
+}
