@@ -66,7 +66,7 @@ class LRUCache {
         if(map.containsKey(key)){
             Node node=map.get(key);
             remove(node);
-            addToFront(head);
+            addToFront(node);
             return node.value;
         }
         return -1; //Not Found
@@ -75,7 +75,7 @@ class LRUCache {
     public void put(int key, int value) {
 
         if(map.containsKey(key)){
-            
+
             Node node=map.get(key);
             node.value=value; //update the value
             remove(node);
@@ -107,3 +107,10 @@ class LRUCache {
 
 
 }
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
