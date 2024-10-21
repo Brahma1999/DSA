@@ -1,0 +1,22 @@
+Nth Fibonacci Number
+Given a positive integer n, find the nth fibonacci number. Since the answer can be very large, return the answer modulo 1000000007.
+
+Note: for the reference of this question take first fibonacci number to be 1.
+
+Examples :
+
+Input: n = 2
+Output: 1 
+Explanation: 1 is the 2nd number of fibonacci series.
+Input: n = 5
+Output: 5
+Explanation: 5 is the 5th number of fibonacci series.
+
+class Solution {
+    
+    private static final int mod=1000000007;
+    static int nthFibonacci(int n){
+      if(n==1 || n==2) return 1;
+      return (nthFibonacci(n-1)+nthFibonacci(n-2))%mod;
+    }
+}
