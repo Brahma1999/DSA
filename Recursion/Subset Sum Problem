@@ -1,0 +1,53 @@
+Subset Sum Problem
+
+Given an array of non-negative integers, and a value sum, determine if there is a subset of the given set with sum equal to given sum. 
+
+Examples:
+
+Input: arr[] = {3, 34, 4, 12, 5, 2}, sum = 9
+Output: true 
+Explanation: Here there exists a subset with sum = 9, 4+3+2 = 9.
+Input: arr[] = {3, 34, 4, 12, 5, 2} , sum = 30
+Output: false
+Explanation: There is no subset with sum 30.
+Expected Time Complexity: O(sum*n)
+Expected Auxiliary Space: O(sum*n)
+
+Constraints:
+1 <= n <= 200
+1<= arr[i] <= 200
+1<= sum <= 4*104
+
+CODE:
+
+class Solution {
+    
+    static Boolean checkCombination(int idx,int arr[], int sum,int target) {
+        
+        //if current sum equals to the target 
+        if(sum==target){
+            return true;
+        }
+        
+        //if we've gone through all elements or exceeded the target return false
+        if(idx >= arr.length || sum > target) return false;
+        
+        //include the current element in the sum
+        //increment the sum by arr[idx] and recurse
+        if(arr[idx] + sum <= target)
+        {
+            if(checkCombination(idx+1,arr,sum+arr[idx],target)){
+                return true;
+            }
+        }
+        //exclude the current element from the sum and recurse to the next index
+        return checkCombination(idx+1,arr,sum,target);
+    }
+    
+
+    static Boolean isSubsetSum(int arr[], int target) {
+        //start recursion with the first index and initial sum of 0
+        return checkCombination(0,arr,0,target);
+        
+    }
+}
