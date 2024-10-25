@@ -1,0 +1,104 @@
+N-Queens
+The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.
+
+Given an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.
+
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively.
+
+Example 1:
+
+
+Input: n = 4
+Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above
+Example 2:
+
+Input: n = 1
+Output: [["Q"]]
+
+
+CODE:
+class Solution {
+
+    public boolean isSafe(int row,int col,char board[][],int n){
+        //store original row and col
+        int duprow=row;
+        int dupcol=col;
+        //check the upper-left diagonal 
+        while(row >=0 && col >=0){
+            if(board[row][col]=='Q') return false;
+            row--; //move up in the diagonal
+            col--; //move left in the column
+        }
+
+        //reset row and column
+        row=duprow;
+        col=dupcol;
+        //check the same column
+        while(col >=0){
+            if(board[row][col]=='Q') return false;
+            col--; //move left in the column
+        }
+
+        //reset row and column
+        row=duprow;
+        col=dupcol;
+        //check lower-left diagonal
+        while(row<n && col >=0){
+            if(board[row][col]=='Q') return false;
+            row++; //move down in the diagonal
+            col--;  //move left in the column
+        }
+        return true;
+    }
+
+    public void getNQueens(int col,char board[][],List<List<String>>allBoards,int n){
+        
+        //Base Case: if all queens are placed , add the board to the answer list
+        if(col==n){
+            List<String> solution=new ArrayList<>(); //Store current solution 
+            for(int i=0;i<n;i++){
+                solution.add(new String(board[i])); //convert row to string array and add to solution
+            }
+            allBoards.add(solution); //Add this solution to the final answer
+            return;
+        }
+
+        //Placing queen in each row
+        for(int row=0;row<n;row++)
+        {
+            //check if it's safe to place a queen
+            if(isSafe(row,col,board,n)){
+                //Place the queen
+                board[row][col]='Q';
+                //Recur to the place the next queen
+                getNQueens(col+1,board,allBoards,n);
+                //Backtrack: remove the queen
+                board[row][col]='.';
+            }
+        }
+
+    }
+
+    public List<List<String>> solveNQueens(int n) {
+        //List to hold all solutions
+        List<List<String>> allBoards = new ArrayList<>();
+
+        //Create the board
+        char board[][] = new char[n][n];
+
+        //Initialize the board with '.'
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                board[i][j]='.';  //Empty cells
+            }
+        }
+
+        //start solving from the first column
+        getNQueens(0,board,allBoards,n);
+
+        //return all found solutions
+        return allBoards;
+    }
+
+}
