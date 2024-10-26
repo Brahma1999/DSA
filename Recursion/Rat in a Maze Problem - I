@@ -1,0 +1,91 @@
+Rat in a Maze Problem - I
+Consider a rat placed at (0, 0) in a square matrix mat of order n* n. It has to reach the destination at (n - 1, n - 1). Find all possible paths that the rat can take to reach from source to destination. The directions in which the rat can move are 'U'(up), 'D'(down), 'L' (left), 'R' (right). Value 0 at a cell in the matrix represents that it is blocked and rat cannot move to it while value 1 at a cell in the matrix represents that rat can be travel through it.
+Note: In a path, no cell can be visited more than one time. If the source cell is 0, the rat cannot move to any other cell. In case of no path, return an empty list. The driver will output "-1" automatically.
+
+Examples:
+
+Input: mat[][] = [[1, 0, 0, 0],
+                [1, 1, 0, 1], 
+                [1, 1, 0, 0],
+                [0, 1, 1, 1]]
+Output: DDRDRR DRDDRR
+Explanation: The rat can reach the destination at (3, 3) from (0, 0) by two paths - DRDDRR and DDRDRR, when printed in sorted order we get DDRDRR DRDDRR.
+Input: mat[][] = [[1, 0],
+                [1, 0]]
+Output: -1
+Explanation: No path exists and destination cell is blocked.
+Expected Time Complexity: O(3n^2)
+Expected Auxiliary Space: O(l * x)
+Here l = length of the path, x = number of paths.
+
+
+CODE:
+
+class Solution {
+    
+    static void  getPath(int row,int col,int[][] mat,ArrayList<String> res,String move,int[][] visited){
+        
+        int n=mat.length;
+        
+        //Base Case
+        if((row == n-1) && (col == n-1)){
+            res.add(move);
+            return;
+        }
+        
+        //Down
+        if((row+1<n) && (visited[row+1][col]==0) && (mat[row+1][col] == 1)){
+            visited[row][col] = 1;
+            getPath(row+1,col,mat,res,move+'D',visited);
+            visited[row][col] = 0;
+        }
+        
+        //left
+        if((col-1 >= 0) && (visited[row][col-1]==0) && (mat[row][col-1] == 1)){
+            visited[row][col] = 1;
+            getPath(row,col-1,mat,res,move+'L',visited);
+            visited[row][col] = 0;
+        }
+        
+        //Right
+        if((col+1 < n) && (visited[row][col+1]==0) && (mat[row][col+1] == 1)){
+            visited[row][col] = 1;
+            getPath(row,col+1,mat,res,move+'R',visited);
+            visited[row][col] = 0;
+        }
+        
+        //Up
+        if((row-1 >= 0) && (visited[row-1][col]==0) && (mat[row-1][col] == 1)){
+            visited[row][col] = 1;
+            getPath(row-1,col,mat,res,move+'U',visited);
+            visited[row][col] = 0;
+        }
+        
+        
+    }
+    
+    
+    
+    
+    public ArrayList<String> findPath(int[][] mat) {
+        
+        int row=mat.length;
+        int col=mat[0].length;
+        
+        ArrayList<String> res= new ArrayList<>();
+        
+        int[][] visited = new int[row][col];
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                visited[i][j]=0;
+            }
+        }
+       
+        if(mat[0][0]==1){
+            getPath(0,0,mat,res,"",visited);
+        }
+        
+        return res;
+        
+    }
+}
