@@ -41,7 +41,6 @@ class Solution {
             }
             return;
         }
- 
         // If the current candidate can be included in the combination
         if (candidates[idx] <= target) {
             // Include the candidate in the current combination
