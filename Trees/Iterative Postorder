@@ -1,0 +1,72 @@
+Iterative Postorder
+
+Given a binary tree. Find the postorder traversal of the tree without using recursion. Return a list containing the postorder traversal of the tree, calculated without using recursion.
+
+Examples :
+
+Input:
+           1
+         /   \
+        2     3
+      /  \
+     4    5
+
+Output: 4 5 2 3 1
+Explanation: Postorder traversal (Left->Right->Root) of the tree is 4 5 2 3 1.
+Input:
+             8
+          /      \
+        1          5
+         \       /   \
+          7     10    6
+           \   /
+            10 6
+
+Output: 10 7 1 6 10 6 5 8 
+Explanation: Postorder traversal (Left->Right->Root) of the tree is 10 7 1 6 10 6 5 8 .
+ 
+Expected time complexity: O(n)
+Expected auxiliary space: O(n)
+
+
+CODE:
+//Using Two Stacks
+class Tree {
+    ArrayList<Integer> postOrder(Node node) {
+        
+        ArrayList<Integer> res = new ArrayList<>();
+        Stack<Node> s1 = new Stack<>();
+        Stack<Node> s2 = new Stack<>();
+        
+        //If tree is empty, return an empty result
+        if(node == null) return res;
+        
+        //Push the root node onto the first stack
+        s1.push(node);
+        
+        //Process nodes in the first stack
+        while(!s1.isEmpty()){
+            //Pop the top node from stack 1
+            node = s1.pop();
+            //Push the popped node onto stack 2
+            s2.push(node);
+            //Push left anf Right children onto the stack s1
+            //Push left child first so that right child is processed first
+            if(node.left != null){
+                s1.push(node.left);
+            }
+            
+            if(node.right != null){
+                s1.push(node.right);
+            }
+            
+        }
+        //Pop all nodes from stack s2 and add to result
+        while(!s2.isEmpty()){
+            //Add the value of the node to the result
+             res.add(s2.pop().data);
+        }
+        //Return the result
+        return res; 
+    }
+}
