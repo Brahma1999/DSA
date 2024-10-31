@@ -4,7 +4,6 @@ Given an array arr[], its starting position is low (the index of the array) and 
 Note: The low and high are inclusive.
 
 Implement the partition() and quickSort() functions to sort the array.
-
 Example 1:
 
 Input: 
