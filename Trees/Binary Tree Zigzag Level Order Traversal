@@ -1,0 +1,78 @@
+ Binary Tree Zigzag Level Order Traversal
+Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).
+
+ 
+
+Example 1:
+
+
+Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[20,9],[15,7]]
+Example 2:
+
+Input: root = [1]
+Output: [[1]]
+Example 3:
+
+Input: root = []
+Output: []
+
+
+CODE:
+
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        // Result List to store the zigzag level order traversal
+        List<List<Integer>> res = new ArrayList<>();
+
+        // Return empty list if the root is null
+        if (root == null)
+            return res;
+
+        // Queue to help with level order traversal
+        Queue<TreeNode> nodesQueue = new LinkedList<>();
+        // Add the root node to the queue
+        nodesQueue.add(root);
+
+        // Boolean to track the direction of traversal
+        boolean LeftToRight = true;
+
+        // While there are nodes to process in the queue
+        while (!nodesQueue.isEmpty()) {
+            // Number of nodes at the current level
+            int size = nodesQueue.size();
+            // List to store values of the current level
+            List<Integer> row = new ArrayList<>();
+
+            for (int i = 0; i < size; i++) {
+                // Retrieve the front node from the queue
+                TreeNode node = nodesQueue.poll();
+
+                // Add the node's value to the current level list
+                // If LeftToRight is true , we add normally
+                // otherwise , we insert at the beginning
+                if (LeftToRight == true) {
+                    row.add(node.val);
+                } else {
+                    row.add(0, node.val);
+                }
+
+                // Add child nodes to the queue
+                if (node.left != null) {
+                    nodesQueue.add(node.left);
+                }
+
+                if (node.right != null) {
+                    nodesQueue.add(node.right);
+                }
+            }
+            // Flip the direction for the next level
+            LeftToRight = !LeftToRight;
+            // Add the current level list to the result list
+            res.add(row);
+        }
+
+        // Return the result list
+        return res;
+    }
+}
