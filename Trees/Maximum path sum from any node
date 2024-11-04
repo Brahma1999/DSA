@@ -1,0 +1,48 @@
+Maximum path sum from any node
+
+Given a binary tree, the task is to find the maximum path sum. The path may start and end at any node in the tree.
+
+Example 1:
+
+Input:
+     10
+    /  \
+   2   -25
+  / \  /  \
+ 20 1  3  4
+Output: 32
+Explanation: Path in the given tree goes
+like 10 , 2 , 20 which gives the max
+sum as 32.
+
+CODE:
+
+class Solution {
+    private int maximumSum = Integer.MIN_VALUE;
+
+    private int maxSum(TreeNode node) {
+        // Base case: If the node is null , return 0
+        if (node == null)
+            return 0;
+
+        // Recursively find the height of the left subtree
+        int leftSum = Math.max(0, maxSum(node.left));
+        // Recursively find the height of the right subtree
+        int rightSum = Math.max(0, maxSum(node.right));
+
+        // Update the overall maximum path sum using the current node's value
+        // plus the sums from both left and right child
+        maximumSum = Math.max(maximumSum, (node.val + leftSum + rightSum));
+
+        // Return the maximummpath sum that can be obtained from the current node
+        // To its parent ,which is the node's value plus the maximum of the left or
+        // right sums
+        return (node.val + Math.max(leftSum, rightSum));
+    }
+
+    public int maxPathSum(TreeNode root) {
+
+        maxSum(root);
+        return maximumSum;
+    }
+}
