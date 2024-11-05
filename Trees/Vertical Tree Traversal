@@ -1,0 +1,110 @@
+Vertical Tree Traversal
+
+Given a Binary Tree, find the vertical traversal of it starting from the leftmost level to the rightmost level.
+If there are multiple nodes passing through a vertical line, then they should be printed as they appear in level order traversal of the tree.
+
+Example 1:
+
+Input:
+           1
+         /   \
+       2       3
+     /   \   /   \
+   4      5 6      7
+              \      \
+               8      9           
+Output: 
+4 2 1 5 6 3 8 7 9 
+Explanation:
+
+Example 2:
+
+Input:
+       1
+    /    \
+   2       3
+ /    \      \
+4      5      6
+Output: 4 2 1 5 3 6
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function verticalOrder() which takes the root node as input parameter and returns an array containing the vertical order traversal of the tree from the leftmost to the rightmost level. If 2 nodes lie in the same vertical level, they should be printed in the order they appear in the level order traversal of the tree.
+
+Expected Time Complexity: O(N)
+Expected Auxiliary Space: O(N)
+
+CODE:
+
+class Pair {
+    Node node;
+    int vertical;
+    int level;
+
+    Pair(Node node, int vertical, int level) {
+        this.node = node;
+        this.vertical = vertical;
+        this.level = level;
+    }
+}
+
+class Solution
+{
+    //Function to find the vertical order traversal of Binary Tree.
+    static ArrayList <Integer> verticalOrder(Node root)
+    {
+        ArrayList <Integer>  res = new ArrayList<>();
+        // Queue for BFS traversal
+        Queue<Pair> queue = new LinkedList<Pair>();
+        // Map to store nodes in vertical ,level order
+        Map<Integer, TreeMap<Integer, List<Integer>>> map = new TreeMap<>();
+
+        // start with root node
+        queue.add(new Pair(root, 0, 0));
+
+        while (!queue.isEmpty()) {
+            Pair currPair = queue.poll();
+
+            Node currNode = currPair.node;
+            int currVertical = currPair.vertical;
+            int currLevel = currPair.level;
+
+            // If no entry for the current vertical , initialize it
+            if (!map.containsKey(currVertical)) {
+                map.put(currVertical, new TreeMap<>());
+            }
+
+            // If no entry for the current vertical , initialize it
+            if (!map.get(currVertical).containsKey(currLevel)) {
+                map.get(currVertical).put(currLevel, new ArrayList<>());
+            }
+
+            // Add current node value to the priority queue
+            map.get(currVertical).get(currLevel).add(currNode.data);
+
+            // move left
+            if (currNode.left != null) {
+                queue.add(new Pair(currNode.left, currVertical - 1, currLevel + 1));
+            }
+
+            // move right
+            if (currNode.right != null) {
+                queue.add(new Pair(currNode.right, currVertical + 1, currLevel + 1));
+            }
+        }
+
+        //Traverse the verticalMap and construct the result list
+        for (int key : map.keySet()) {
+            //List to store the nodes for this vertical position
+            List<Integer> list = new LinkedList<>();
+            TreeMap<Integer,List<Integer>> levelMap = map.get(key);
+
+            for (int level : levelMap.keySet()) {
+                List<Integer> nodesAtLevel = levelMap.get(level);
+                
+                list.addAll(nodesAtLevel);
+                
+            }
+            res.addAll(list);
+        }
+        return res;
+    }
+}
