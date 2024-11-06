@@ -1,0 +1,41 @@
+Symmetric Tree
+
+Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+
+Example 1:
+
+Input: root = [1,2,2,3,4,4,3]
+Output: true
+Example 2:
+Input: root = [1,2,2,null,3,null,3]
+Output: false
+ 
+
+CODE:
+class Solution {
+
+    boolean isSymmetricCheck(TreeNode LeftNode, TreeNode RightNode) {
+
+        // Base Case:if one of the nodes is null ,return false
+        //return true if both are null 
+        if (LeftNode == null || RightNode == null)
+            return LeftNode == RightNode;
+
+        //If values of the current nodes are different ,return false
+        if (LeftNode.val != RightNode.val)
+            return false;
+        
+        //Recursively check for symmetry
+        //- left subtree of the left node and right subtree of the right node
+        //- right subtree of the left node and left subtree of the right node
+        return isSymmetricCheck(LeftNode.left,RightNode.right) &&  isSymmetricCheck(LeftNode.right,RightNode.left);
+    }
+
+    public boolean isSymmetric(TreeNode root) {
+        //If the root is null, the tree is symmetric 
+        if (root == null)
+            return true;
+
+        return isSymmetricCheck(root.left, root.right);
+    }
+}
