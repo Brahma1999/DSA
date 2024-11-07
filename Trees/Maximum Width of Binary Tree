@@ -83,3 +83,39 @@ class Solution {
         return maxWidth;
     }
 }
+
+
+
+GFG VERSION CODE:
+class Solution {
+  // Function to get the maximum width of a binary tree.
+  int getMaxWidth(Node root) {
+    int max = 1;
+    if (root == null) {
+      return 0;
+    }
+    Queue<Node> queue = new LinkedList<>();
+    queue.add(root);
+    while (true) {
+      int size = queue.size();
+      if (size == 0) {
+        break;
+      }
+      if (size > max) {
+        max = size;
+      }
+      size = queue.size();
+      while (size > 0) {
+        Node ap = queue.remove();
+        if (ap.left != null) {
+          queue.add(ap.left);
+        }
+        if (ap.right != null) {
+          queue.add(ap.right);
+        }
+        size--;
+      }
+    }
+    return max;
+  }
+}
