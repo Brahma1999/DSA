@@ -1,0 +1,159 @@
+Nodes at given distance K in binary tree
+
+Given a binary tree, a target node in the binary tree, and an integer value k, find all the nodes that are at a distance k from the given target node. No parent pointers are available.
+Note:
+
+You have to return the list in sorted order.
+The tree will not contain duplicate values.
+Examples:
+
+Input:      
+          20
+        /    \
+      8       22 
+    /   \
+   4    12 
+       /   \
+      10    14
+Target Node = 8
+k = 2
+Output: [10, 14, 22]
+Explanation: The nodes at distance 2 from node 8 are 10, 14, 22.
+
+Input:      
+         20
+       /    \
+      7      24
+    /   \
+   4     3
+        /  
+       1    
+Target Node = 7
+K = 2
+Output: [1, 24]
+Explanation: The nodes at distance 2 from node 7 are 1, 24.
+Input:      
+          30
+         /  \
+       15    45
+      / \    / \
+     10  20 35  50
+          \
+          25
+Target Node = 15
+k = 1
+Output: [10, 20, 30]
+Explanation: The nodes at distance 1 from node 15 are 10, 20, 30.
+
+CODE:
+
+class Solution {
+    static void markParents(Node root, Map<Node, Node> parentMap) {
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            Node currNode = q.remove();
+            if (currNode.left != null) {
+                parentMap.put(currNode.left, currNode);
+                q.add(currNode.left);
+            }
+            if (currNode.right != null) {
+                parentMap.put(currNode.right, currNode);
+                q.add(currNode.right);
+            }
+        }
+    }
+    
+    //Function to find node of the given target
+    public static Node findNode(Node root,int target){
+
+        Queue<Node> q=new LinkedList<>();
+        q.offer(root);
+        
+        while(!q.isEmpty()){
+            
+            Node node=q.poll();
+            
+            if(node.data==target){
+                return node;
+            }
+            
+            if(node.left!=null){
+                q.offer(node.left);
+            }
+            
+            if(node.right!=null){
+                q.offer(node.right);
+            }
+        }
+        
+        return root;
+    }
+    
+    public static ArrayList<Integer> KDistanceNodes(Node root, int target, int k) {
+        // return the sorted list of all nodes at k dist
+        
+        // Map(currNode,ParentNode)
+        Map<Node,Node> parentMap = new HashMap<>();
+        markParents(root, parentMap);
+        
+        Node targetNode =findNode(root,target);
+
+        //Map(currNode,visitedorNot)
+        Map<Node, Boolean> visitedMap = new HashMap<>();
+        Queue<Node> queue = new LinkedList<>();
+
+        //
+        queue.add(targetNode);
+        visitedMap.put(targetNode, true);
+
+        int currLevel = 0;
+
+        while (!queue.isEmpty()) {
+
+            int size = queue.size();
+
+            //Base case: if current level reaches K , break 
+            if (currLevel == k)
+                break;
+            currLevel++;
+
+            for (int i = 0; i < size; i++) {
+
+                Node currNode = queue.poll();
+
+                //check is the currNode's left exists and is not visited
+                //add the left node to the queue ,and mark as visited
+                if (currNode.left != null && visitedMap.get(currNode.left) == null) {
+                    queue.add(currNode.left);
+                    visitedMap.put(currNode.left, true);
+                }
+
+                //check is the currNode's right exists and is not visited
+                //add the right node to the queue ,and mark as visited
+                if (currNode.right != null && visitedMap.get(currNode.right) == null) {
+                    queue.add(currNode.right);
+                    visitedMap.put(currNode.right, true);
+                }
+
+                //check is the currNode has a parent and is not visited
+                //add the parent node of the currNode to the queue ,and mark as visited
+                if (parentMap.get(currNode) != null && visitedMap.get(parentMap.get(currNode)) == null) {
+                    queue.add(parentMap.get(currNode));
+                    visitedMap.put(parentMap.get(currNode), true);
+                }
+            }
+        }
+
+        //Nodes left in the queue are the resulant nodes
+        ArrayList<Integer> result = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            Node currNode = queue.poll();
+            result.add(currNode.data);
+        }
+        
+        Collections.sort(result);
+
+        return result;
+    }
+};
