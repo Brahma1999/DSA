@@ -1,0 +1,145 @@
+Burning Tree
+
+Given a binary tree and a node data called target. Find the minimum time required to burn the complete binary tree if the target is set on fire. It is known that in 1 second all nodes connected to a given node get burned. That is its left child, right child, and parent.
+Note: The tree contains unique values.
+
+
+Examples : 
+
+Input:      
+          1
+        /   \
+      2      3
+    /  \      \
+   4    5      6
+       / \      \
+      7   8      9
+                   \
+                   10
+Target Node = 8
+Output: 7
+Explanation: If leaf with the value 8 is set on fire. 
+After 1 sec: 5 is set on fire.
+After 2 sec: 2, 7 are set to fire.
+After 3 sec: 4, 1 are set to fire.
+After 4 sec: 3 is set to fire.
+After 5 sec: 6 is set to fire.
+After 6 sec: 9 is set to fire.
+After 7 sec: 10 is set to fire.
+It takes 7s to burn the complete tree.
+Input:      
+          1
+        /   \
+      2      3
+    /  \      \
+   4    5      7
+  /    / 
+ 8    10
+Target Node = 10
+Output: 5
+
+Expected Time Complexity: O(number of nodes)
+Expected Auxiliary Space: O(height of tree)
+
+CODE:
+
+class Solution {
+  /*class Node {
+      int data;
+      Node left;
+      Node right;
+
+      Node(int data) {
+              this.data = data;
+              left = null;
+              right = null;
+      }
+  }*/
+
+  // Function to find the parent nodes
+  static void getParents(Node root, Map<Node, Node> parentMap) {
+    Queue<Node> queue = new LinkedList<>();
+    queue.add(root);
+
+    while (!queue.isEmpty()) {
+      Node currNode = queue.poll();
+
+      if (currNode.left != null) {
+        queue.add(currNode.left);
+        parentMap.put(currNode.left, currNode);
+      }
+
+      if (currNode.right != null) {
+        queue.add(currNode.right);
+        parentMap.put(currNode.right, currNode);
+      }
+    }
+  }
+
+  // Function to find the target node
+  static Node findNode(Node root, int target) {
+    Queue<Node> queue = new LinkedList<>();
+    queue.add(root);
+
+    while (!queue.isEmpty()) {
+      Node currNode = queue.poll();
+
+      if (currNode.data == target) {
+        return currNode;
+      }
+
+      if (currNode.left != null) {
+        queue.add(currNode.left);
+      }
+
+      if (currNode.right != null) {
+        queue.add(currNode.right);
+      }
+    }
+    return root;
+  }
+
+  public static int minTime(Node root, int target) {
+    // currrentNode,ParentNode
+    Map<Node, Node> parentMap = new HashMap<>();
+    getParents(root, parentMap);
+
+    Node targetNode = findNode(root, target);
+
+    Queue<Node> queue = new LinkedList<>();
+    queue.add(targetNode);
+    
+    Map<Node, Boolean> burnedMap = new HashMap<>();
+    burnedMap.put(targetNode,true);
+
+    int burnTime = 0;
+
+    while (!queue.isEmpty()) {
+      int size = queue.size();
+
+      burnTime++;
+
+      for (int i = 0; i < size; i++) {
+        Node currNode = queue.poll();
+
+        if (currNode.left != null && burnedMap.get(currNode.left) == null) {
+          queue.add(currNode.left);
+          burnedMap.put(currNode.left, true);
+        }
+
+        if (currNode.right != null && burnedMap.get(currNode.right) == null) {
+          queue.add(currNode.right);
+          burnedMap.put(currNode.right, true);
+        }
+
+        if (parentMap.get(currNode) != null
+            && burnedMap.get(parentMap.get(currNode)) == null) {
+          queue.add(parentMap.get(currNode));
+          burnedMap.put(parentMap.get(currNode), true);
+        }
+      }
+    }
+
+    return burnTime-1;
+  }
+}
