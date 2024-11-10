@@ -1,0 +1,89 @@
+Serialize and Deserialize Binary Tree
+Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
+
+Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.
+
+Clarification: The input/output format is the same as how LeetCode serializes a binary tree. You do not necessarily need to follow this format, so please be creative and come up with different approaches yourself.
+
+
+Example 1:
+
+
+Input: root = [1,2,3,null,null,4,5]
+Output: [1,2,3,null,null,4,5]
+
+CODE:
+
+public class Codec {
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+
+        if (root == null)
+            return " ";
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        StringBuilder res = new StringBuilder();
+
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+
+            if (node == null) {
+                res.append("# ");
+                continue;
+            }
+
+            res.append(node.val + " ");
+            queue.add(node.left);
+            queue.add(node.right);
+        }
+
+        return res.toString();
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+
+        //If the input data is empty or contains only spaces , return null
+        if (data == "" || data.trim().isEmpty())
+            return null;
+        
+        Queue<TreeNode> queue = new LinkedList<>();
+        //Split the input string by spaces to get all node values
+        String[] values= data.split(" ");
+
+        //Create the root node using first value
+        TreeNode root = new TreeNode(Integer.parseInt(values[0]));
+        queue.add(root);
+
+        int i=1 ; //Start from the second element (since the root is already handled)
+
+        while(i< values.length) {
+            TreeNode parent = queue.poll();
+
+            //Check left child
+
+            if(!values[i].equals("#")){
+                //Create left node and add it to parent
+                TreeNode leftNode = new TreeNode(Integer.parseInt(values[i]));
+                parent.left = leftNode;
+                //Add the newly created left node to the queue
+                queue.add(leftNode);
+            }
+            i++; //Move to the next value in the array
+
+            //Check right child
+            if(i< values.length && !values[i].equals("#")){
+                //Create right node and add it to parent
+                TreeNode rightNode = new TreeNode(Integer.parseInt(values[i]));
+                parent.right = rightNode;
+                //Add the newly created right node to the queue
+                queue.add(rightNode);
+            }
+            i++;//Move to the next value in the array
+        }
+        return root;
+    }
+}
