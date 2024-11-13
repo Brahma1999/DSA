@@ -1,0 +1,47 @@
+K-th smallest element in BST
+
+Given a BST and an integer k. Find the kth smallest element in the BST using O(1) extra space. 
+
+Examples:
+
+Input:
+      2
+    /   \
+   1     3
+k = 2
+Output: 2
+Explanation: 2 is the 2nd smallest element in the BST
+Input:
+        2
+      /  \
+     1    3
+k = 5
+Output: -1
+Explanation: There is no 5th smallest element in the BST as the size of BST is 3
+Constraints:
+1 <= number of nodes <= 105
+1 <= node->data <= 105
+
+CODE:
+class Solution {
+    int count =0;
+    int ans;
+    // Return the Kth smallest element in the given BST
+    public int KthSmallestElement(Node root, int K) {
+        // Write your code here
+        if (root == null) return 0;
+           
+        KthSmallestElement(root.left, K);
+
+        count++;
+        if (count == K) ans = root.data;
+
+        KthSmallestElement(root.right, K);
+        
+        if(K > count){
+            return -1;
+        }
+
+        return  ans;
+    }
+}
