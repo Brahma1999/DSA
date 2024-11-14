@@ -24,26 +24,32 @@ Constraints:
 
 CODE:
 class Solution {
-    int count =0;
-    int ans;
-    // Return the Kth smallest element in the given BST
-    public int KthSmallestElement(Node root, int K) {
-        // Write your code here
-        if (root == null) return 0;
+    static int count =0;
+    static int ans = -1;
+    static  void inorderTraversal(Node root, int k){
+        if(root == null) return;
 
-       //Inorder traversal
-      
-        KthSmallestElement(root.left, K);
+        //Vist the left subtree 
+        inorderTraversal(root.left, k);
 
+        //increase the count
         count++;
-        if (count == K) ans = root.data;
 
-        KthSmallestElement(root.right, K);
-        
-        if(K > count){
-            return -1;
-        }
+        //if count equals k ,we have found the kth smallest
+        if (count == k){
+            ans = root.data;
+            return; //no need to continue further
+        } 
 
+        //Vist the right subtree
+        inorderTraversal(root.right, k);
+    }
+    // Return the Kth smallest element in the given BST
+    public int KthSmallestElement(Node root, int k) {
+        count =0;
+        ans =-1;
+        // Write your code here
+        inorderTraversal(root,k);
         return  ans;
     }
 }
