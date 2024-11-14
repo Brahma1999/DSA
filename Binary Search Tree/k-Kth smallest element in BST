@@ -30,7 +30,9 @@ class Solution {
     public int KthSmallestElement(Node root, int K) {
         // Write your code here
         if (root == null) return 0;
-           
+
+       //Inorder traversal
+      
         KthSmallestElement(root.left, K);
 
         count++;
