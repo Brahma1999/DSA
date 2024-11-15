@@ -48,7 +48,6 @@ class Solution {
         root.right = bst(inorder, rootIndex + 1, ie, preorder, ps + numsLeft + 1, pe, map);
 
         return root;
-
     }
 
     public TreeNode bstFromPreorder(int[] preorder) {
