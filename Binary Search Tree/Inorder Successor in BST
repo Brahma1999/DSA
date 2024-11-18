@@ -1,0 +1,60 @@
+Inorder Successor in BST
+
+Given a BST, and a reference to a Node k in the BST. Find the Inorder Successor of the given node in the BST. If there is no successor, return null value.
+ 
+
+Examples :
+
+Input: BST = [2, 1, 3]
+      2
+    /   \
+   1     3
+k = 2
+Output: 3 
+Explanation: Inorder traversal : 1 2 3 Hence, inorder successor of 2 is 3.
+Input: BST = [20, 8, 22, 4, 12, N, N, N, N, 10, 14]
+             20
+            /   \
+           8     22
+          / \
+         4   12
+            /  \
+           10   14
+k = 8
+Output: 10
+Explanation: Inorder traversal: 4 8 10 12 14 20 22. Hence, successor of 8 is 10.
+Input: BST = [2, 1, 3]
+      2
+    /   \
+   1     3
+k = 3
+Output: -1 
+Explanation: Inorder traversal : 1 2 3 Hence, inorder successor of 3 is null.
+Constraints:
+1 <= n <= 105, where n is number of nodes
+
+
+CODE:
+class Solution
+{
+    // returns the inorder successor of the Node x in BST (rooted at 'root')
+	public Node inorderSuccessor(Node root,Node x)
+         {
+             Node successor = null;
+             //Iterate while root reaches null
+             while(root != null){
+                 //If x value is greater or equal to the root data ,move right
+                 if(x.data >= root.data){
+                     root = root.right;
+                 }else{
+                     //If x value is less than the root data
+                     //root can be the answer ,but for immediate successor move left
+                     successor = root;
+                     root = root.left;
+                 }
+             }
+             
+             return successor;
+
+         }
+}
