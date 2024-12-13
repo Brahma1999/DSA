@@ -19,7 +19,6 @@ Problems sharing similarity in question framing:
 https://leetcode.com/problems/minimum-size-subarray-sum/ (only +ve elements): different from above pattern problems, where we are maximising the subArray size so repetitions on cumulativeSums occur, whereas in this problem we are minimizing the size of candidate so sliding becomes handy.
 https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/ (contains -ve elements): uses monotonic deque
 
-
 2. Two Pointers
 The Two Pointers pattern involves using two pointers to iterate through an array or list, often used to find pairs or elements that meet specific criteria.
 Use this pattern when dealing with sorted arrays or lists where you need to find pairs that satisfy a specific condition.
