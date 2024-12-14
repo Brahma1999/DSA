@@ -1,5 +1,4 @@
 Get minimum element from stack
-
 You are given N operations and your task is to Implement a Stack in which you can get a minimum element in O(1) time.
 
 Example 1:
