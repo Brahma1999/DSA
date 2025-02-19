@@ -13,6 +13,27 @@ Explanation: 0s 1s and 2s are segregated into ascending order.
 Expected Time Complexity: O(n)
 Expected Auxiliary Space: O(1)
 
+The Dutch National Flag algorithm (also known as the 3-way partitioning or the Lomuto partition scheme) is used to sort an array of elements into three distinct groups.  The classic example uses colors (red, white, and blue, hence the name), but it can be applied to any situation where you have three categories.
+
+The Problem
+
+You have an array containing elements of three types (e.g., 0, 1, and 2, or red, white, and blue).  The goal is to rearrange the array so that all elements of the first type come first, followed by elements of the second type, and then elements of the third type.  The order within each group doesn't matter.
+
+The Algorithm (High-Level)
+The Dutch National Flag algorithm uses three pointers:
+low: Points to the beginning of the array. Elements to the left of low are all of the first type.
+mid: Points to the current element being examined.
+high: Points to the end of the array. Elements to the right of high are all of the third type.
+The algorithm iterates while mid <= high:
+If arr[mid] is of the first type:
+Swap arr[low] and arr[mid].
+Increment both low and mid.
+If arr[mid] is of the second type:
+Increment mid (no swap needed).
+If arr[mid] is of the third type:
+Swap arr[mid] and arr[high].
+Decrement high (but don't increment mid yet, because the element swapped into arr[mid] hasn't been processed).
+
 
 CODE:
 //User function template for Java
